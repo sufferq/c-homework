@@ -4,7 +4,6 @@
 
 using namespace std;
 
-// Константы
 const int CATEGORY_COUNT = 3;
 const int DRINKS_PER_CATEGORY = 4;
 const double PETRUSHKA_DISCOUNT = 0.05;
@@ -13,7 +12,6 @@ const double TOTAL_DISCOUNT = 0.13;
 const double TOTAL_MIN_AMOUNT = 2500.0;
 const int ONION_FREE_EVERY = 4;
 
-// Массивы с данными
 string categories[CATEGORY_COUNT] = {
     "Фруктовые соки",
     "Овощные соки",
@@ -128,7 +126,6 @@ void showCategory(int category, double& totalPrice)
         clearScreen();
         cout << "=== " << categories[category] << " ===" << endl;
 
-        // Показываем напитки в категории
         for (int i = 0; i < DRINKS_PER_CATEGORY; i++)
         {
             if (drinks[category][i] != "-")
@@ -144,11 +141,9 @@ void showCategory(int category, double& totalPrice)
 
         if (choiceBuy == "0") break;
 
-        // Простая проверка ввода
         int drinkNum = 0;
         bool validInput = true;
 
-        // Проверяем, что ввод - цифра
         for (int i = 0; i < choiceBuy.length(); i++)
         {
             if (!isdigit(choiceBuy[i]))
@@ -184,7 +179,6 @@ void showCategory(int category, double& totalPrice)
             continue;
         }
 
-        // Добавляем в корзину
         int drinkIndex = drinkNum - 1;
 
         if (quantity <= counts[category][drinkIndex])
@@ -192,17 +186,14 @@ void showCategory(int category, double& totalPrice)
             double price = prices[category][drinkIndex];
             double cost = price * quantity;
 
-            // Применяем акции
             if (category == 2 && drinkIndex == 1 && quantity >= PETRUSHKA_MIN_QUANTITY)
             {
-                // Скидка на петрушечный чай
                 double discount = cost * PETRUSHKA_DISCOUNT;
                 cost -= discount;
                 cout << "Применена скидка 5%: -" << discount << " руб." << endl;
             }
             else if (category == 1 && drinkIndex == 1)
             {
-                // Акция на луковый сок
                 int freeLiters = quantity / ONION_FREE_EVERY;
                 int paidLiters = quantity - freeLiters;
                 cost = price * paidLiters;
@@ -302,4 +293,5 @@ void makePayment(double& totalPrice)
 void clearScreen()
 {
     system("cls");
+
 }
